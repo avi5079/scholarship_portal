@@ -6,6 +6,7 @@ const port = process.env.PORT;
 const morgan = require("morgan");
 const cors = require("cors");
 const connectDB = require("./db/connect");
+const searchGoogle = require("./utils/crawler");
 
 // app.use(
 //   cors({
@@ -19,8 +20,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(morgan("dev"));
 
 //routes
-app.get("/", (req, res) => {
-  res.send("Hello");
+app.get("/", async (req, res) => {
+  try {
+    const data = await searchGoogle(
+      "government scholarship",
+      3,
+      "results.json"
+    );
+    res.status(200).json({ success: true, data });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 const start = async () => {
