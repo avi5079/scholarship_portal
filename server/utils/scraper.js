@@ -1,8 +1,9 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-async function scrape() {
-  const URLsToVisit = ["https://scholarship.up.gov.in"];
+async function scrape(link) {
+  const URLsToVisit = [];
+  URLsToVisit.push(link);
   const visitedURLs = [];
 
   const scholarshipsLinks = new Set();
@@ -28,7 +29,7 @@ async function scrape() {
     });
   }
 
-  console.log([...scholarshipsLinks]);
+  return [...scholarshipsLinks];
 }
 
 module.exports = scrape;
