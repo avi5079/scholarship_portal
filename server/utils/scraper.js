@@ -1,17 +1,13 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 
-async function scrape() {
-  const URLsToVisit = ["https://scholarship.up.gov.in"];
-  const visitedURLs = [];
-
+async function scrape(link) {
+  // console.log("scraping:", link);
   const scholarshipsLinks = new Set();
 
-  while (URLsToVisit.length != 0) {
-    const url = URLsToVisit.pop();
+  try {
+    const url = link;
     const pageHTML = await axios.get(url);
-
-    visitedURLs.push(url);
     const $ = cheerio.load(pageHTML.data);
 
     $("a").each((index, element) => {
@@ -22,13 +18,15 @@ async function scrape() {
       linkText = linkText.toLowerCase();
 
       if (linkText.includes("scholarship")) {
-        scholarshipsLinks.add(link);
-        console.log(link);
+        const linkObj = { link_title: linkText, link_url: link };
+        scholarshipsLinks.add(linkObj);
+        // console.log(link);
       }
     });
+  } catch (e) {
+    console.log("error: ", e);
   }
-
-  console.log([...scholarshipsLinks]);
+  return [...scholarshipsLinks];
 }
 
 module.exports = scrape;

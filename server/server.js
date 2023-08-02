@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const connectDB = require("./db/connect");
 const searchGoogle = require("./utils/crawler");
+const mainController = require("./controllers/main");
 
 // app.use(
 //   cors({
@@ -40,6 +41,7 @@ const start = async () => {
     app.listen(port, () => {
       console.log(`Server is running on port ${port} `);
     });
+    mainController();
   } catch (error) {
     console.log(error);
   }
