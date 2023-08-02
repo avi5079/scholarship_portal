@@ -2,17 +2,12 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 
 async function scrape(link) {
-  const URLsToVisit = [];
-  URLsToVisit.push(link);
-  const visitedURLs = [];
-
+  // console.log("scraping:", link);
   const scholarshipsLinks = new Set();
 
-  while (URLsToVisit.length != 0) {
-    const url = URLsToVisit.pop();
+  try {
+    const url = link;
     const pageHTML = await axios.get(url);
-
-    visitedURLs.push(url);
     const $ = cheerio.load(pageHTML.data);
 
     $("a").each((index, element) => {
@@ -23,12 +18,14 @@ async function scrape(link) {
       linkText = linkText.toLowerCase();
 
       if (linkText.includes("scholarship")) {
-        scholarshipsLinks.add(link);
-        console.log(link);
+        const linkObj = { link_title: linkText, link_url: link };
+        scholarshipsLinks.add(linkObj);
+        // console.log(link);
       }
     });
+  } catch (e) {
+    console.log("error: ", e);
   }
-
   return [...scholarshipsLinks];
 }
 

@@ -5,7 +5,7 @@ const { Schema } = mongoose;
 
 const getGoogleLinks = async () => {
   // 1 get the links from the crawler
-  const links = await searchGoogle("scholarship", 2, false);
+  const links = await searchGoogle("scholarship", 1, false);
 
   // store in db
   links.forEach(async (link) => {
