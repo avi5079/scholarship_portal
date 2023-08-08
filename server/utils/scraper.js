@@ -18,7 +18,7 @@ async function scrape(link) {
       linkText = linkText.toLowerCase();
 
       if (linkText.includes("scholarship")) {
-        const linkObj = { link_title: linkText, link_url: link };
+        const linkObj = { title: linkText, link: link };
         scholarshipsLinks.add(linkObj);
         // console.log(link);
       }

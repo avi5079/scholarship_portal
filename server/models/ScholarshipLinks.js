@@ -7,8 +7,8 @@ const { Schema, default: mongoose } = require("mongoose");
 
 const ScholarshipLinksSchema = new Schema({
   title: String,
-  url: String,
-  scholarship_links: Array,
+  link: String,
+  desc: String,
 });
 
 // const URLLinks = mongoose.model("URLLinks", URLLinksSchema);
