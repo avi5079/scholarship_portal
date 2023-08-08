@@ -20,8 +20,8 @@ const getRelevantData = async () => {
     try {
       const saved = await ScholarshipLinks.create({
         title: d.title,
-        url: d.url,
-        scholarship_links: d.scholarship_links,
+        link: d.link,
+        desc: d.desc,
       });
       console.log("Inserted data: ", saved);
     } catch (err) {
